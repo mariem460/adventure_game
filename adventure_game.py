@@ -6,6 +6,7 @@ def print_pause(message_to_print, delay=1):
     print(message_to_print)
     time.sleep(delay)
 
+
 def intro(selected_ennemy):
     print_pause("You find yourself standing in an open field,", 0)
 
@@ -25,13 +26,11 @@ def enter_choice(selected_ennemy, has_sword):
     print_pause("Enter 1 to knock on the door of the house.", 0)
     print_pause("Enter 2 to peer into the cave.")
     print_pause("What would you like to do ?")
-    choice = input("Please enter 1 or 2\n")
+    choice = valid_input("Please enter 1 or 2\n", ["1", "2"])
     if "1" == choice:
         knock(selected_ennemy, has_sword)
-    elif "2" == choice:
-        cave(selected_ennemy, has_sword)
     else:
-        enter_choice(selected_ennemy, has_sword)
+        cave(selected_ennemy, has_sword)
 
 
 def knock(selected_ennemy, has_sword):
@@ -45,7 +44,9 @@ def knock(selected_ennemy, has_sword):
         print_pause(
             "You feel a bit under-prepared for this,"
             " what with only having a tiny dagger.")
-    fight_choice = input("Would you like to (1) fight or (2) run away?\n")
+    fight_choice = valid_input(
+        "Would you like to (1) fight or (2) run away?\n",
+        ["1", "2"])
     if "1" == fight_choice:
         fight(selected_ennemy, has_sword)
     else:
@@ -91,16 +92,13 @@ def fight(selected_ennemy, has_sword):
 
 
 def retry_play_again_choice():
-    restart = input("Would you like to play again? (y/n) \n")
+    restart = valid_input("Would you like to play again? (y/n) \n", ["y", "n"])
     if "y" == restart:
         print_pause("restarting the game...")
         play_game()
-    elif "n" == restart:
+    else:
         print_pause("Thanks for playing! See you next time.\n", 2)
         exit()
-    else:
-        print_pause("try again", 0)
-        retry_play_again_choice()
 
 
 def run(selected_ennemy, has_sword):
@@ -115,6 +113,15 @@ def play_game():
     selected_ennemy = random.choice(ennemies)
     intro(selected_ennemy)
     enter_choice(selected_ennemy, False)
+
+
+def valid_input(message, options):
+    while True:
+        choice = input(message)
+        if choice in options:
+            return choice
+        else:
+            print_pause(f"please try again, {choice} is not valid")
 
 
 play_game()

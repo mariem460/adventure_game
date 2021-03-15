@@ -2,16 +2,17 @@ import time
 import random
 
 
-def print_pause(message_to_print):
+def print_pause(message_to_print, delay=1):
     print(message_to_print)
-    time.sleep(1)
-
+    time.sleep(delay)
 
 def intro(selected_ennemy):
-    print_pause("You find yourself standing in an open field,")
+    print_pause("You find yourself standing in an open field,", 0)
+
     print_pause("filled with grass and yellow wildflowers.")
     print_pause(
-        f"Rumor has it that a {selected_ennemy} is somewhere around here"
+        f"Rumor has it that a {selected_ennemy}"
+        " is somewhere around here"
         " and has been terrifying the nearby village.")
     print_pause("In front of you is a house.")
     print_pause("To your right is a dark cave.")
@@ -21,7 +22,7 @@ def intro(selected_ennemy):
 
 
 def enter_choice(selected_ennemy, has_sword):
-    print_pause("Enter 1 to knock on the door of the house.")
+    print_pause("Enter 1 to knock on the door of the house.", 0)
     print_pause("Enter 2 to peer into the cave.")
     print_pause("What would you like to do ?")
     choice = input("Please enter 1 or 2\n")
@@ -95,10 +96,10 @@ def retry_play_again_choice():
         print_pause("restarting the game...")
         play_game()
     elif "n" == restart:
-        print_pause("Thanks for playing! See you next time.\n")
+        print_pause("Thanks for playing! See you next time.\n", 2)
         exit()
     else:
-        print_pause("try again")
+        print_pause("try again", 0)
         retry_play_again_choice()
 
 
